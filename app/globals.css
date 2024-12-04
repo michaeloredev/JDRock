@@ -1,0 +1,64 @@
+@import url("https://use.typekit.net/kje1wvw.css");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.matrix {
+  font-family: "matrix-ii", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.matrix-OL {
+  font-family: "matrix-ii-display-inline-ext", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+/* Arvo - Regular */
+.arvo {
+  font-family: "arvo", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Arvo - Italic */
+.arvo-italic {
+  font-family: "arvo", serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+/* Arvo - Bold */
+.arvo-bold {
+  font-family: "arvo", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* .bg-container{
+  background-color:red;
+  height:100vh;
+  width:100%;
+  z-index: -1;
+}
+
+.mountain-bg{
+  background-size: cover;
+  background-position: right bottom;
+  background-repeat: no-repeat;
+  height:100%;
+  width:50%;
+  background-image: url('/images/Mountain.svg');
+} */
