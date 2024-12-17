@@ -30,9 +30,9 @@ export default function RootLayout({ children }) {
       >
         
         <NavBanner />
-        <AppBgImg />
-        {children}
         
+        {children}
+        <AppBgImg />
       </body>
     </html>
   );

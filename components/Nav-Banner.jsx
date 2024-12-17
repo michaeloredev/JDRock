@@ -4,7 +4,7 @@ import HamburgerMenu from "./HamburgerMenu";
 // import Image from "next/image";
 // import { motion } from "framer-motion";
 
-import checkList from "@/public/images/checklist-icon.png";
+// import checkList from "@/public/images/checklist-icon.png";
 
 export default function NavBanner() {
   return (
@@ -28,39 +28,41 @@ export default function NavBanner() {
         </div>
       </div>
 
-      <div className="h-[50px] md:h-[75px] bg-green-800 flex md:items-center justify-between md:px-12">
-
+      <div className="flex flex-column h-[50px] md:h-[75px] bg-green-800 flex items-center justify-between md:px-12 md:flex-row">
 
         <div className="hidden max-md:flex">
           <HamburgerMenu />
         </div>
-
         <div className="flex max-md:hidden">
-          <Link href="/" className="text-white arvo text-xl px-8">
+          <Link href="/" className="flex text-white arvo text-xl lg:px-8 md:px-2 ">
             Home
           </Link>
-          <Link href="/about" className="text-white arvo text-xl px-8">
+          <Link href="/about" className="flex text-white arvo text-xl lg:px-8 md:px-2">
             About
           </Link>
-          <Link href="/services" className="text-white arvo text-xl px-8">
+          <Link href="/services" className="flex text-white arvo text-xl lg:px-8 md:px-2">
             Services
           </Link>
-          <Link href="/pages/process" className="text-white arvo text-xl px-8">
+          <Link href="process" className="flex text-white arvo text-xl lg:px-8 md:px-2">
             Process
           </Link>
-          <Link href="/pages/gallery" className="text-white arvo text-xl px-8">
+          <Link href="gallery" className="flex text-white arvo text-xl lg:px-8 md:px-2">
             Gallery
           </Link>
           <Link
             href="/pages/testimonials"
-            className="text-white arvo text-xl px-8"
+            className="flex text-white arvo text-xl px-2"
           >
             Testimonials
           </Link>
         </div>
-
-        {/* <Image src={checkList} alt="checklist icon" width={40} /> */}
+        <div className="flex flex-nowrap text-white arvo text-xl px-2">
+          <div>443-244-0484</div>
+        </div>
       </div>
+
+
+
     </>
   );
 }

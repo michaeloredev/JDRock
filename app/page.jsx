@@ -5,9 +5,9 @@ export default function Home() {
  
   return (
     <>
-      <div className="flex flex-col justify-center md:flex-row md:justify-around mt-8 ">
+      <div className="flex justify-center md:flex-row md:justify-around mt-8 mb-6">
 
-        <div className="bg-gray-500 bg-opacity-80 rounded-lg text-white arvo text-lg p-2 w-5/6 md:text-xl md:w-3/6 md:p-6">
+        <div className="bg-gray-500 bg-opacity-80 rounded-lg text-white arvo text-lg p-8 w-11/12 md:text-xl md:w-3/6 md:p-6">
 
           <div className="mb-3">
             J.D. Rock Custom Home Improvements is your best choice in Frederick
@@ -30,7 +30,7 @@ export default function Home() {
           <div className="">Sincerely Christopher Ore - Owner</div>
         </div>
 
-        <div className="bg-gray-500 bg-opacity-80 w-2/6 p-6 rounded-lg text-white arvo text-xl">
+        <div className="bg-gray-500 bg-opacity-80 w-2/6 p-6 rounded-lg text-white arvo text-xl hidden md:inline">
           <ContactForm />
         </div>
       </div>

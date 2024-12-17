@@ -10,7 +10,7 @@ export default function AppBgImg() {
       objectFit: 'cover',
       zIndex: -1,
       opacity: 0.5,
-      position: 'absolute',
+      position: 'fixed',
       bottom: 0,
       right: 0,
     }}

@@ -33,7 +33,7 @@ export default function ContactForm() {
     <div className="flex">
       <form className="w-full" onSubmit={handleSubmit(onHandleSubmit)}>
         <div className="flex justify-center">
-          <div className="flex flex-col mb-9 w-4/6">
+          <div className="flex flex-col mb-9 w-full">
             <label htmlFor="name" className="mb-2">
               Full Name:
             </label>
@@ -50,7 +50,7 @@ export default function ContactForm() {
         </div>
 
         <div className="flex justify-center">
-          <div className="flex flex-col mb-9 w-4/6">
+          <div className="flex flex-col mb-9 w-full">
             <label htmlFor="email" className="mb-2">
               Email:
             </label>
@@ -74,7 +74,7 @@ export default function ContactForm() {
         </div>
 
         <div className="flex justify-center">
-          <div className="flex flex-col mb-9 w-4/6">
+          <div className="flex flex-col mb-9 w-full">
             <label htmlFor="phone" className="mb-2">
               Phone Number:
             </label>
@@ -88,7 +88,7 @@ export default function ContactForm() {
         </div>
 
         <div className="flex justify-center">
-          <div className="flex flex-col mb-9 w-4/6">
+          <div className="flex flex-col mb-9 w-full">
             <label htmlFor="questions" className="mb-2">
               Questions/Comments:
             </label>

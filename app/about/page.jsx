@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function About() {
+export default function AboutPage() {
   return (
     <div className="flex justify-center">
-    <div className="bg-gray-500 bg-opacity-80 w-9/12 p-6 rounded-lg text-white arvo text-xl mt-8">
+    <div className="bg-gray-500 bg-opacity-80 w-11/12 md:w-4/6 p-6 rounded-lg text-white arvo text-xl mt-8">
           <div className="mb-3">
             J.D. Rock Custom Home Improvements is your best choice in Frederick
             and surrounding counties for all your remodeling and repair needs.
