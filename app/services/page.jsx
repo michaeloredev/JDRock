@@ -3,7 +3,7 @@ import React from "react";
 export default function ServicesPage() {
   return (
     <div className="flex justify-center">
-      <div className="bg-gray-500 bg-opacity-80 w-11/12 md:w-4/6 p-6 rounded-lg text-white arvo text-xl my-8">
+      <div className="bg-gray-500 bg-opacity-80 w-11/12 md:w-4/6 p-6 rounded-lg text-white arvo text-xl my-8 shadow-lg">
         <div className="mb-3">
           
           <div className="text-2xl text-white underline underline-offset-4 [text-shadow:_1px_2px_1px_rgb(0_0_0_/_40%)]">Whole House Renovations</div>

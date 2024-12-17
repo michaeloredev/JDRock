@@ -28,11 +28,12 @@ export default function NavBanner() {
         </div>
       </div>
 
-      <div className="flex flex-column h-[50px] md:h-[75px] bg-green-800 flex items-center justify-between md:px-12 md:flex-row">
+      <div className="flex flex-column h-[50px] md:h-[75px] bg-green-800 flex items-center justify-between md:px-12 md:flex-row shadow-md">
 
         <div className="hidden max-md:flex">
           <HamburgerMenu />
         </div>
+
         <div className="flex max-md:hidden">
           <Link href="/" className="flex text-white arvo text-xl lg:px-8 md:px-2 ">
             Home
