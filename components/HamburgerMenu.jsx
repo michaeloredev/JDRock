@@ -59,18 +59,6 @@ export default function HamburgerMenu() {
           </Link>
         </div>
 
-        <div className="flex items-center my-3">
-          <div className="ml-4">
-            <FaQuestionCircle style={{ color: "white" }} size={24} />
-          </div>
-          <Link
-            href="/about"
-            onClick={handleClose}
-            className="text-white arvo text-2xl px-2 "
-          >
-            About
-          </Link>
-        </div>
 
         <div className="flex items-center my-3">
           <div className="ml-4">
