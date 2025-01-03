@@ -38,9 +38,6 @@ export default function NavBanner() {
           <Link href="/" className="flex text-white arvo text-xl lg:px-8 md:px-2 ">
             Home
           </Link>
-          <Link href="/about" className="flex text-white arvo text-xl lg:px-8 md:px-2">
-            About
-          </Link>
           <Link href="/services" className="flex text-white arvo text-xl lg:px-8 md:px-2">
             Services
           </Link>
@@ -51,7 +48,7 @@ export default function NavBanner() {
             Gallery
           </Link>
           <Link
-            href="/pages/testimonials"
+            href="testimonials"
             className="flex text-white arvo text-xl px-2"
           >
             Testimonials

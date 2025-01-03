@@ -5,7 +5,7 @@ export default function ServicesPage() {
     <div className="flex justify-center">
       <div className="bg-gray-500 bg-opacity-80 w-11/12 md:w-4/6 p-6 rounded-lg text-white arvo text-xl my-8 shadow-lg">
         <div className="mb-3">
-          
+        <h1 className="arvo-bold text-3xl font-bold mb-4">Services</h1>
           <div className="text-2xl text-white underline underline-offset-4 [text-shadow:_1px_2px_1px_rgb(0_0_0_/_40%)]">Whole House Renovations</div>
           <div className="mb-4 pt-2">
             We transform existing homes into beautiful new living spaces. We
