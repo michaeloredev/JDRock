@@ -51,6 +51,7 @@ export default function GalleryPage() {
                   src={imgSrc}
                   alt={`Gallery Image ${index + 1}`}
                   fill
+                  sizes="(min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
                   className="object-cover rounded"
                   // You can optionally specify priority={true} for above-the-fold images
                 />
