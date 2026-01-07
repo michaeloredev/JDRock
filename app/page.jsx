@@ -30,9 +30,9 @@ export default function Home() {
           <div className="">Sincerely Christopher Ore - Owner</div>
         </div>
 
-        <div className="bg-gray-500 bg-opacity-80 w-2/6 p-6 rounded-lg text-white arvo text-xl hidden md:inline shadow-lg">
+        {/* <div className="bg-gray-500 bg-opacity-80 w-2/6 p-6 rounded-lg text-white arvo text-xl hidden md:inline shadow-lg">
           <ContactForm />
-        </div>
+        </div> */}
       </div>
     </>
   );
