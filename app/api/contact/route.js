@@ -21,8 +21,8 @@ console.log("CONTACT: hit route"); // 👈 ADD
     // Create a Nodemailer transporter using SMTP (you can also use other transport methods)
     const transporter = nodemailer.createTransport({
       host: process.env.EMAIL_HOST, // e.g., 'smtp.gmail.com' for Gmail
-      port: 465, // or 465 for SSL
-      secure: true, // true for 465, false for other ports
+      port: 587, // or 465 for SSL
+      secure: false, // true for 465, false for other ports
       auth: {
         user: process.env.EMAIL_USER, // your email address
         pass: process.env.EMAIL_PASS, // your email password or app-specific password
