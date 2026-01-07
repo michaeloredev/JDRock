@@ -5,11 +5,18 @@ export const runtime = 'nodejs';
 import nodemailer from 'nodemailer';
 
 export async function POST(request) {
+
+console.log("CONTACT: hit route"); // 👈 ADD
+
   try {
     const body = await request.json();
 
+    console.log("CONTACT: parsed body"); // 👈 ADD
+
     // Destructure the data from the request body
     const { name, email, phone, questions } = body;
+
+    console.log("CONTACT: creating transporter"); // 👈 ADD
 
     // Create a Nodemailer transporter using SMTP (you can also use other transport methods)
     const transporter = nodemailer.createTransport({
@@ -22,9 +29,13 @@ export async function POST(request) {
       },
     });
 
+
+    console.log("CONTACT: about to send"); // 👈 ADD
+
     // Set up email data
     const mailOptions = {
-      from: `"${name}" <${email}>`, // sender address
+      from: `"Website Contact" <${process.env.EMAIL_USER}>`,
+      replyTo: email,
       to: process.env.EMAIL_TO, // list of receivers (could be your email)
       subject: 'New Contact Form Submission', // Subject line
       text: `
@@ -43,6 +54,8 @@ export async function POST(request) {
 
     // Send mail with defined transport object
     await transporter.sendMail(mailOptions);
+
+    console.log("CONTACT: sent"); // 👈 ADD
 
     return new Response(JSON.stringify({ message: 'Email sent successfully' }), {
       status: 200,
