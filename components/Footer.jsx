@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { FaPhoneAlt, FaMapMarkerAlt, FaShieldAlt } from "react-icons/fa";
+import { FaGoogle, FaMapMarkerAlt, FaPhoneAlt, FaShieldAlt } from "react-icons/fa";
 import mountain from "@/public/images/Mountain.svg";
 import { navLinks, site } from "@/lib/site";
 
@@ -51,6 +51,18 @@ export default function Footer() {
               <li className="flex items-center gap-3">
                 <FaShieldAlt aria-hidden="true" className="text-accent" />
                 {site.warranty}
+              </li>
+              <li>
+                <a
+                  href={site.googleReviewUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-white hover:underline"
+                >
+                  <FaGoogle aria-hidden="true" className="text-accent" />
+                  Leave us a Google review
+                  <span className="sr-only">(opens in a new tab)</span>
+                </a>
               </li>
             </ul>
           </div>

@@ -1,8 +1,10 @@
-import { FaQuoteLeft } from "react-icons/fa";
+import { FaGoogle, FaQuoteLeft } from "react-icons/fa";
 import ExpandableQuote from "@/components/ExpandableQuote";
+import Button from "@/components/ui/Button";
 import CallToAction from "@/components/ui/CallToAction";
 import PageHeader from "@/components/ui/PageHeader";
 import Section from "@/components/ui/Section";
+import { site } from "@/lib/site";
 import { testimonials } from "@/lib/testimonials";
 
 export const metadata = {
@@ -36,6 +38,26 @@ export default function TestimonialPage() {
             </li>
           ))}
         </ul>
+
+        <div className="mt-10 flex flex-col items-start justify-between gap-6 rounded-lg border border-stone-200 bg-white p-6 shadow-sm sm:flex-row sm:items-center md:p-8">
+          <div>
+            <h2 className="font-heading text-2xl font-bold text-brand-800">Worked with us?</h2>
+            <p className="mt-2 text-lg text-stone-600">
+              We&apos;d be grateful if you shared your experience on Google.
+            </p>
+          </div>
+          <Button
+            href={site.googleReviewUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="primary"
+            size="lg"
+          >
+            <FaGoogle aria-hidden="true" />
+            Leave a Google review
+            <span className="sr-only">(opens in a new tab)</span>
+          </Button>
+        </div>
       </Section>
 
       <CallToAction
