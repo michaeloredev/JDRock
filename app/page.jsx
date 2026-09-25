@@ -228,7 +228,7 @@ export default function Home() {
             Read more reviews <FaArrowRight aria-hidden="true" />
           </Link>
           <a
-            href={site.googleReviewUrl}
+            href={site.reviewPath}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 font-semibold text-white hover:underline"
