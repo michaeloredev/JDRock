@@ -1,4 +1,9 @@
-import React from "react";
+import { FaShieldAlt } from "react-icons/fa";
+import CallToAction from "@/components/ui/CallToAction";
+import Card from "@/components/ui/Card";
+import PageHeader from "@/components/ui/PageHeader";
+import Section from "@/components/ui/Section";
+import { services } from "@/lib/services";
 
 export const metadata = {
   title: "Services",
@@ -8,66 +13,43 @@ export const metadata = {
 
 export default function ServicesPage() {
   return (
-    <div className="flex justify-center">
-      <div className="bg-gray-500 bg-opacity-80 w-11/12 md:w-4/6 p-6 rounded-lg text-white arvo text-xl my-8 shadow-lg">
-        <div className="mb-3">
-        <h1 className="arvo-bold text-3xl font-bold mb-4">Services</h1>
-          <div className="text-2xl text-white underline underline-offset-4 [text-shadow:_1px_2px_1px_rgb(0_0_0_/_40%)]">Whole House Renovations</div>
-          <div className="mb-4 pt-2">
-            We transform existing homes into beautiful new living spaces. We
-            renovate your living space to your style, specifications and budget.
-          </div>
+    <>
+      <PageHeader
+        eyebrow="Services"
+        title="Everything in or on your home"
+        subtitle="From a single repair to a whole-house renovation, one call to J.D. Rock handles it all."
+      />
 
-          <div className="text-2xl text-white underline underline-offset-4 [text-shadow:_1px_2px_1px_rgb(0_0_0_/_40%)]">Room Additions</div>
-          <div className="mb-4 pt-2">
-            Adding a new room to your house not only increases your available
-            living space, but also your investment value. Whether it's a new
-            bedroom, den or a basement or garage conversion our team works
-            closely with you to get the house you want.
-          </div>
+      <Section>
+        <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {services.map(({ slug, title, description, icon: Icon }) => (
+            <li key={slug} id={slug} className="scroll-mt-24">
+              <Card className="h-full">
+                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-50 text-2xl text-brand-700">
+                  <Icon aria-hidden="true" />
+                </span>
+                <h2 className="mt-4 font-heading text-xl font-bold text-stone-900">{title}</h2>
+                <p className="mt-3 leading-relaxed text-stone-600">{description}</p>
+              </Card>
+            </li>
+          ))}
+          <li className="lg:col-span-2">
+            <div className="flex h-full flex-col items-start justify-center gap-5 rounded-lg border-2 border-accent bg-amber-50 p-6 sm:flex-row sm:items-center md:p-8">
+              <FaShieldAlt aria-hidden="true" className="shrink-0 text-5xl text-brand-700" />
+              <div>
+                <h2 className="font-heading text-2xl font-bold text-brand-800">
+                  Backed by a 5-year warranty
+                </h2>
+                <p className="mt-2 text-lg text-stone-700">
+                  All workmanship is covered by an industry-leading 5-year warranty.
+                </p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </Section>
 
-          <div className="text-2xl text-white underline underline-offset-4 [text-shadow:_1px_2px_1px_rgb(0_0_0_/_40%)]">Dormers</div>
-          <div className="mb-4 pt-2">
-            Dormers are an affordable way to increase the square footage of your
-            house, while enhancing the appearance and value of the house.
-          </div>
-
-          <div className="text-2xl text-white underline underline-offset-4 [text-shadow:_1px_2px_1px_rgb(0_0_0_/_40%)]"> Bathroom Remodeling</div>
-          <div className="mb-4 pt-2">
-            Quality workmanship shines through on our bathroom remodeling. We
-            combine luxury finishes, cabinetry and fixtures from all major
-            brands. Whether it's a new idea or working with your existing
-            design, we will take every possible measure to build the comfort and
-            elegance you desire.
-          </div>
-
-          <div className="text-2xl text-white underline underline-offset-4 [text-shadow:_1px_2px_1px_rgb(0_0_0_/_40%)]">Kitchen Remodeling </div>
-          <div className="mb-4 pt-2">
-            From new breakfast rooms to appliances to new cabinetry, our kitchen
-            remodeling team will design the kitchen of your dreams. Let us show
-            you how top quality finishes and the latest in functional design
-            techniques can spice up your kitchen/dining experience.
-          </div>
-
-          <div className="text-2xl text-white underline underline-offset-4 [text-shadow:_1px_2px_1px_rgb(0_0_0_/_40%)]">Exterior Improvements</div>
-          <div className="mb-4 pt-2">
-            Our team can make sure your home is both beautiful and functional.
-            The options are nearly unlimited: from installing siding, to
-            replacing roofs, to adding cultured stone, we can change an ordinary
-            house into an extraordinary house!
-          </div>
-          <div className="text-2xl ext-white underline underline-offset-4 [text-shadow:_1px_2px_1px_rgb(0_0_0_/_40%)]">Window Replacement</div>
-          <div className="mb-4 pt-2">
-            Window replacements save energy costs and beautify your home. We'll
-            match your new windows to the exact sizes and let the energy savings
-            pay for themselves over time.
-          </div>
-          <div className="text-2xl ext-white underline underline-offset-4 [text-shadow:_1px_2px_1px_rgb(0_0_0_/_40%)]"> Warranty</div>
-          <div className="mb-4 pt-2">
-            All workmanship is covered by an industry leading 5 -year warranty.
-          </div>
-        </div>
-      </div>
-    </div>
+      <CallToAction />
+    </>
   );
 }
