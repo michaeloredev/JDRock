@@ -4,68 +4,70 @@ export const runtime = 'nodejs';
 
 import nodemailer from 'nodemailer';
 
-export async function POST(request) {
+const escapeHtml = (value = '') =>
+  String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 
-console.log("CONTACT: hit route"); // 👈 ADD
+const json = (data, status) =>
+  new Response(JSON.stringify(data), {
+    status,
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+export async function POST(request) {
+  let body;
+  try {
+    body = await request.json();
+  } catch {
+    return json({ error: 'Invalid request' }, 400);
+  }
+
+  // Destructure the data from the request body
+  const name = String(body?.name ?? '').trim();
+  const email = String(body?.email ?? '').trim();
+  const phone = String(body?.phone ?? '').trim();
+  const questions = String(body?.questions ?? '').trim();
+
+  if (!name || !email || !questions) {
+    return json({ error: 'Name, email, and a message are required' }, 400);
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return json({ error: 'Please enter a valid email' }, 400);
+  }
 
   try {
-    const body = await request.json();
-
-    console.log("CONTACT: parsed body"); // 👈 ADD
-
-    // Destructure the data from the request body
-    const { name, email, phone, questions } = body;
-
-    console.log("CONTACT: creating transporter"); // 👈 ADD
-
-    // Create a Nodemailer transporter using SMTP (you can also use other transport methods)
+    // Gmail SMTP: EMAIL_PASS must be a Google App Password, not the account password
     const transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST, // e.g., 'smtp.gmail.com' for Gmail
-      port: 587, // or 465 for SSL
-      secure: false, // true for 465, false for other ports
+      host: process.env.EMAIL_HOST,
+      port: 587,
+      secure: false, // STARTTLS on 587
       auth: {
-        user: process.env.EMAIL_USER, // your email address
-        pass: process.env.EMAIL_PASS, // your email password or app-specific password
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
     });
 
-
-    console.log("CONTACT: about to send"); // 👈 ADD
-
-    // Set up email data
-    const mailOptions = {
+    await transporter.sendMail({
       from: `"Website Contact" <${process.env.EMAIL_USER}>`,
       replyTo: email,
-      to: process.env.EMAIL_TO, // list of receivers (could be your email)
-      subject: 'New Contact Form Submission', // Subject line
-      text: `
-        Name: ${name}
-        Email: ${email}
-        Phone: ${phone}
-        Message: ${questions}
-      `, // plain text body
+      to: process.env.EMAIL_TO,
+      subject: `New Contact Form Submission from ${name.replace(/[\r\n]+/g, ' ')}`,
+      text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage:\n${questions}`,
       html: `
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phone}</p>
-        <p><strong>Message:</strong><br/>${questions}</p>
-      `, // HTML body
-    };
-
-    // Send mail with defined transport object
-    await transporter.sendMail(mailOptions);
-
-    console.log("CONTACT: sent"); // 👈 ADD
-
-    return new Response(JSON.stringify({ message: 'Email sent successfully' }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
+        <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+        <p><strong>Phone:</strong> ${escapeHtml(phone)}</p>
+        <p><strong>Message:</strong><br/>${escapeHtml(questions).replace(/\n/g, '<br/>')}</p>
+      `,
     });
+
+    return json({ message: 'Email sent successfully' }, 200);
   } catch (error) {
     console.error('Error sending email:', error);
-    return new Response(JSON.stringify({ error: 'Error sending email' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return json({ error: 'Error sending email' }, 500);
   }
 }
