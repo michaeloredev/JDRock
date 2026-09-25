@@ -43,26 +43,26 @@ export default function ContactForm() {
     <div className="flex">
       <form className="w-full" onSubmit={handleSubmit(onHandleSubmit)}>
         <div className="flex justify-center">
-          <div className="flex flex-col mb-9 w-full">
-            <label htmlFor="name" className="mb-2">
+          <div className="flex flex-col mb-6 w-full">
+            <label htmlFor="name" className="mb-2 font-medium text-stone-800">
               Full Name:
             </label>
             <input
               id="name"
               {...register("name", { required: "Name is required" })}
-              className="w-full p-3 rounded-lg text-black"
+              className="w-full rounded-md border border-stone-300 bg-white p-3 text-stone-900 placeholder:text-stone-400 focus:border-brand-600 focus:outline-none focus:ring-2 focus:ring-brand-600/30"
               type="text"
               placeholder="Your Full Name"
             />
             {errors.name && (
-              <p className="text-lime-400">{errors.name.message}</p>
+              <p className="mt-1 text-sm text-red-700">{errors.name.message}</p>
             )}
           </div>
         </div>
 
         <div className="flex justify-center">
-          <div className="flex flex-col mb-9 w-full">
-            <label htmlFor="email" className="mb-2">
+          <div className="flex flex-col mb-6 w-full">
+            <label htmlFor="email" className="mb-2 font-medium text-stone-800">
               Email:
             </label>
             <input
@@ -75,25 +75,25 @@ export default function ContactForm() {
                   message: "Please enter a valid email",
                 },
               })}
-              className="w-full p-3 rounded-lg text-black"
+              className="w-full rounded-md border border-stone-300 bg-white p-3 text-stone-900 placeholder:text-stone-400 focus:border-brand-600 focus:outline-none focus:ring-2 focus:ring-brand-600/30"
               type="email"
               placeholder="Your Email"
             />
             {errors.email && (
-              <p className="text-lime-400">{errors.email.message}</p>
+              <p className="mt-1 text-sm text-red-700">{errors.email.message}</p>
             )}
           </div>
         </div>
 
         <div className="flex justify-center">
-          <div className="flex flex-col mb-9 w-full">
-            <label htmlFor="phone" className="mb-2">
+          <div className="flex flex-col mb-6 w-full">
+            <label htmlFor="phone" className="mb-2 font-medium text-stone-800">
               Phone Number:
             </label>
             <input
               id="phone"
               {...register("phone")}
-              className="w-full p-3 rounded-lg text-black"
+              className="w-full rounded-md border border-stone-300 bg-white p-3 text-stone-900 placeholder:text-stone-400 focus:border-brand-600 focus:outline-none focus:ring-2 focus:ring-brand-600/30"
               type="tel"
               placeholder="Your Phone Number"
             />
@@ -101,8 +101,8 @@ export default function ContactForm() {
         </div>
 
         <div className="flex justify-center">
-          <div className="flex flex-col mb-9 w-full">
-            <label htmlFor="questions" className="mb-2">
+          <div className="flex flex-col mb-6 w-full">
+            <label htmlFor="questions" className="mb-2 font-medium text-stone-800">
               Questions/Comments:
             </label>
             <textarea
@@ -110,12 +110,12 @@ export default function ContactForm() {
               {...register("questions", {
                 required: "Please enter your question or comment",
               })}
-              className="w-full rounded-lg p-3 text-black"
+              className="w-full rounded-md border border-stone-300 bg-white p-3 text-stone-900 placeholder:text-stone-400 focus:border-brand-600 focus:outline-none focus:ring-2 focus:ring-brand-600/30"
               rows={5}
               placeholder="Questions/Comments"
             ></textarea>
             {errors.questions && (
-              <p className="text-lime-400">{errors.questions.message}</p>
+              <p className="mt-1 text-sm text-red-700">{errors.questions.message}</p>
             )}
           </div>
         </div>
@@ -124,7 +124,7 @@ export default function ContactForm() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="bg-green-800 hover:bg-green-600 hover:shadow text-white font-bold py-2 px-6 rounded opacity-100 disabled:opacity-60 disabled:cursor-not-allowed"
+            className="w-full rounded-md bg-accent px-6 py-3 text-lg font-semibold text-accent-ink transition-colors hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
           >
             {isSubmitting ? "Sending..." : "Submit"}
           </button>
@@ -133,7 +133,7 @@ export default function ContactForm() {
         {status && (
           <p
             role="status"
-            className={`mt-6 text-center ${status.ok ? "text-lime-400" : "text-red-300"}`}
+            className={`mt-6 rounded-md p-4 text-center ${status.ok ? "bg-brand-50 text-brand-800" : "bg-red-50 text-red-800"}`}
           >
             {status.message}
           </p>

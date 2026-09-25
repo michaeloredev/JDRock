@@ -1,5 +1,9 @@
-import React from "react";
+import { FaMapMarkerAlt, FaPhoneAlt, FaShieldAlt } from "react-icons/fa";
 import ContactForm from "@/components/ContactForm";
+import Card from "@/components/ui/Card";
+import PageHeader from "@/components/ui/PageHeader";
+import Section from "@/components/ui/Section";
+import { site } from "@/lib/site";
 
 export const metadata = {
   title: "Contact",
@@ -9,10 +13,40 @@ export const metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="flex justify-center md:flex-row md:justify-around mt-8 ">
-        <div className="bg-gray-500 bg-opacity-80 w-11/12 p-6 rounded-lg text-white arvo text-xl ">
+    <>
+      <PageHeader
+        eyebrow="Contact"
+        title="Get your free estimate"
+        subtitle="Tell us about your project and we'll get back to you. Consultations and estimates are always free, with no pressure."
+      />
+      <Section innerClassName="grid gap-10 lg:grid-cols-5">
+        <Card className="md:p-8 lg:col-span-3">
           <ContactForm />
+        </Card>
+        <div className="lg:col-span-2">
+          <h2 className="font-heading text-2xl font-bold text-brand-800">Prefer to talk?</h2>
+          <p className="mt-2 text-stone-600">Give us a call and we&apos;ll be glad to help.</p>
+          <ul className="mt-6 space-y-4 text-stone-800">
+            <li>
+              <a
+                href={site.phoneHref}
+                className="flex items-center gap-3 text-xl font-semibold text-brand-700 hover:underline"
+              >
+                <FaPhoneAlt aria-hidden="true" />
+                {site.phone}
+              </a>
+            </li>
+            <li className="flex items-center gap-3">
+              <FaMapMarkerAlt aria-hidden="true" className="text-brand-600" />
+              {site.serviceArea}
+            </li>
+            <li className="flex items-center gap-3">
+              <FaShieldAlt aria-hidden="true" className="text-brand-600" />
+              {site.warranty}
+            </li>
+          </ul>
         </div>
-      </div>
+      </Section>
+    </>
   );
 }
