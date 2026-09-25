@@ -1,5 +1,11 @@
 import React from "react";
 
+export const metadata = {
+  title: "Testimonials",
+  description:
+    "What homeowners across Frederick County say about working with J.D. Rock Custom Home Improvements.",
+};
+
 export default function TestimonialPage() {
   return (
     <div className="flex justify-center">

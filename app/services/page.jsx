@@ -1,5 +1,11 @@
 import React from "react";
 
+export const metadata = {
+  title: "Services",
+  description:
+    "Whole-house renovations, additions, dormers, kitchen and bath remodeling, exterior improvements, and window replacement in Frederick County, MD.",
+};
+
 export default function ServicesPage() {
   return (
     <div className="flex justify-center">

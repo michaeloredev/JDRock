@@ -1,5 +1,11 @@
 import React from "react";
 
+export const metadata = {
+  title: "Our Process",
+  description:
+    "From free consultation and estimate through design, permits, construction, and a thorough punch list, here's how J.D. Rock works.",
+};
+
 export default function ProcessPage() {
   return (
     
