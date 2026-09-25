@@ -1,15 +1,16 @@
 "use client";
 import { useForm } from "react-hook-form";
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
 export default function ContactForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     reset,
   } = useForm();
+  const [status, setStatus] = useState(null);
 
   const onHandleSubmit = async (values) => {
     let config = {
@@ -20,12 +21,21 @@ export default function ContactForm() {
       },
       data: values,
     };
+    setStatus(null);
     try {
-      const response = await axios(config);
-      console.log(response);
+      await axios(config);
       reset();
-    } catch(err) {
-      console.log(err);
+      setStatus({
+        ok: true,
+        message: "Thanks! Your message has been sent. We'll be in touch soon.",
+      });
+    } catch (err) {
+      console.error(err);
+      setStatus({
+        ok: false,
+        message:
+          "Sorry, something went wrong sending your message. Please call us at 443-244-0484.",
+      });
     }
   };
 
@@ -38,6 +48,7 @@ export default function ContactForm() {
               Full Name:
             </label>
             <input
+              id="name"
               {...register("name", { required: "Name is required" })}
               className="w-full p-3 rounded-lg text-black"
               type="text"
@@ -55,6 +66,7 @@ export default function ContactForm() {
               Email:
             </label>
             <input
+              id="email"
               {...register("email", {
                 required: "Email is required",
                 pattern: {
@@ -64,7 +76,7 @@ export default function ContactForm() {
                 },
               })}
               className="w-full p-3 rounded-lg text-black"
-              type="text"
+              type="email"
               placeholder="Your Email"
             />
             {errors.email && (
@@ -79,9 +91,10 @@ export default function ContactForm() {
               Phone Number:
             </label>
             <input
+              id="phone"
               {...register("phone")}
               className="w-full p-3 rounded-lg text-black"
-              type="text"
+              type="tel"
               placeholder="Your Phone Number"
             />
           </div>
@@ -93,8 +106,9 @@ export default function ContactForm() {
               Questions/Comments:
             </label>
             <textarea
+              id="questions"
               {...register("questions", {
-                required: "Please enter your question of comment",
+                required: "Please enter your question or comment",
               })}
               className="w-full rounded-lg p-3 text-black"
               rows={5}
@@ -109,11 +123,21 @@ export default function ContactForm() {
         <div className="flex justify-center">
           <button
             type="submit"
-            className="bg-green-800 hover:bg-green-600 hover:shadow text-white font-bold py-2 px-6 rounded opacity-100"
+            disabled={isSubmitting}
+            className="bg-green-800 hover:bg-green-600 hover:shadow text-white font-bold py-2 px-6 rounded opacity-100 disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            Submit
+            {isSubmitting ? "Sending..." : "Submit"}
           </button>
         </div>
+
+        {status && (
+          <p
+            role="status"
+            className={`mt-6 text-center ${status.ok ? "text-lime-400" : "text-red-300"}`}
+          >
+            {status.message}
+          </p>
+        )}
       </form>
     </div>
   );
