@@ -16,6 +16,7 @@ const geistMono = localFont({
 });
 
 export const metadata = {
+  metadataBase: new URL(site.url),
   title: {
     default: `${site.name} | Frederick, MD`,
     template: `%s | ${site.name}`,

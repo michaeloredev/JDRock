@@ -31,8 +31,8 @@ export default function Button({
   const classes = `${base} ${variants[variant]} ${sizes[size]} ${className}`;
 
   if (href) {
-    // tel:/mailto: links don't go through the Next router
-    if (!href.startsWith("/")) {
+    // tel:/mailto:, redirects, and new-tab links don't go through the Next router
+    if (!href.startsWith("/") || props.target === "_blank") {
       return (
         <a href={href} className={classes} {...props}>
           {children}

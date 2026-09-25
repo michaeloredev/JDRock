@@ -54,7 +54,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href={site.googleReviewUrl}
+                  href={site.reviewPath}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-white hover:underline"

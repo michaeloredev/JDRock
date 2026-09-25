@@ -47,7 +47,7 @@ export default function TestimonialPage() {
             </p>
           </div>
           <Button
-            href={site.googleReviewUrl}
+            href={site.reviewPath}
             target="_blank"
             rel="noopener noreferrer"
             variant="primary"
