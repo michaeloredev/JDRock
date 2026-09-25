@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   FaArrowRight,
+  FaGoogle,
   FaHandshake,
   FaMapMarkerAlt,
   FaPhoneAlt,
@@ -219,12 +220,24 @@ export default function Home() {
             </figure>
           ))}
         </div>
-        <Link
-          href="/testimonials"
-          className="mt-8 inline-flex items-center gap-2 font-semibold text-white hover:underline"
-        >
-          Read more reviews <FaArrowRight aria-hidden="true" />
-        </Link>
+        <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8">
+          <Link
+            href="/testimonials"
+            className="inline-flex items-center gap-2 font-semibold text-white hover:underline"
+          >
+            Read more reviews <FaArrowRight aria-hidden="true" />
+          </Link>
+          <a
+            href={site.googleReviewUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 font-semibold text-white hover:underline"
+          >
+            <FaGoogle aria-hidden="true" className="text-accent" />
+            Leave a Google review
+            <span className="sr-only">(opens in a new tab)</span>
+          </a>
+        </div>
       </Section>
 
       {/* Estimate request */}
