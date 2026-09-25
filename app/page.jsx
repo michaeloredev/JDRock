@@ -23,16 +23,15 @@ export default function Home() {
           </div>
           <div className="mb-3">
             We look forward to the privilege of serving you now and in the
-            future with all your home improvement needs. Sincerely Christopher
-            Ore - Owner Please contact us directly with any questions you may
-            have while we finish reloading our website.
+            future with all your home improvement needs. Please contact us directly with any questions you may
+            have.
           </div>
           <div className="">Sincerely Christopher Ore - Owner</div>
         </div>
 
-        {/* <div className="bg-gray-500 bg-opacity-80 w-2/6 p-6 rounded-lg text-white arvo text-xl hidden md:inline shadow-lg">
+        <div className="bg-gray-500 bg-opacity-80 w-2/6 p-6 rounded-lg text-white arvo text-xl hidden md:inline shadow-lg">
           <ContactForm />
-        </div> */}
+        </div>
       </div>
     </>
   );
