@@ -1,0 +1,7 @@
+jdrock.com {
+  reverse_proxy app:3000
+}
+
+www.jdrock.com {
+  redir https://jdrock.com{uri}
+}

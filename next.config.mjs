@@ -5,6 +5,8 @@ const GOOGLE_REVIEW_URL = "https://g.page/r/CYyU0Jm3UAIUEAE/review";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     distDir: "build",
+    // Self-contained server for the Docker image (see Dockerfile)
+    output: "standalone",
     async redirects() {
         return [
             {

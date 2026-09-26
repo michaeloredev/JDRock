@@ -1,0 +1,29 @@
+# Copied to /srv/jdrock on the droplet by .github/workflows/deploy.yml.
+# .env.production (EMAIL_* vars) lives only on the droplet.
+name: jdrock
+
+services:
+  app:
+    image: ghcr.io/michaeloredev/jdrock:latest
+    restart: unless-stopped
+    expose:
+      - "3000"
+    env_file:
+      - .env.production
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
+
+volumes:
+  caddy_data:
+  caddy_config:
