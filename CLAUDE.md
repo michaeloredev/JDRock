@@ -30,7 +30,7 @@ There are no tests. `npm run lint` is broken: Next 16 removed `next lint` (and `
 
 **Metadata**: root `layout.js` sets `metadataBase` and a `%s | J.D. Rock…` title template; each page exports its own `metadata`. Pages needing client state (Gallery, ExpandableQuote) keep `page.jsx` as a server component and import a client component, so metadata still works.
 
-**Contact form**: `components/ContactForm.jsx` (react-hook-form + axios) POSTs to `app/api/contact/route.js`, which validates, HTML-escapes input, and sends via nodemailer over Gmail SMTP (port 587). Env vars in `.env.local`: `EMAIL_HOST`, `EMAIL_USER`, `EMAIL_PASS` (must be a Google App Password), `EMAIL_TO`. The form is used on both `/` and `/contact`.
+**Contact form**: `components/ContactForm.jsx` (react-hook-form + axios) POSTs to `app/api/contact/route.js`, which validates, HTML-escapes input, and sends through Resend's HTTP API (DigitalOcean blocks outbound SMTP ports on the droplet, so SMTP/nodemailer won't work there). Env vars in `.env.local` / the droplet's `.env.production`: `RESEND_API_KEY`, `EMAIL_TO` (comma-separated ok), optional `EMAIL_FROM` (default `website@jdrock.com`; must be on the Resend-verified jdrock.com domain; DNS records live in DigitalOcean). The form is used on both `/` and `/contact`.
 
 **Google reviews**: `/review` is a 307 redirect defined in `next.config.mjs` (`GOOGLE_REVIEW_URL`) — the only place the Google URL lives. Site links and printed material use `jdrock.com/review`.
 
@@ -42,7 +42,7 @@ Headless Chrome barely advances framer-motion, so screenshots show page content 
 
 ## Deployment
 
-Pushing to `main` deploys (`.github/workflows/deploy.yml`): Actions builds the root `Dockerfile` (Next `output: "standalone"`) and pushes `ghcr.io/michaeloredev/jdrock:latest`, then SSHes to the droplet (`159.203.173.214`, user `deploy`), copies `deploy/docker-compose.yml` + `deploy/Caddyfile` into `/srv/jdrock`, and runs `docker compose pull app && up -d`. Caddy in the same compose project terminates TLS (certs in the `jdrock_caddy_data` volume — keep the compose project name `jdrock`). The droplet's `/srv/jdrock/.env.production` holds the `EMAIL_*` vars and is never in the repo. Secrets: `DEPLOY_SSH_KEY`, `DEPLOY_KNOWN_HOSTS`, `DEPLOY_HOST`. Re-deploy without a push via the workflow's "Run workflow" button. Test the image locally with `docker build -t jdrock-test . && docker run --rm -p 3999:3000 jdrock-test`.
+Pushing to `main` deploys (`.github/workflows/deploy.yml`): Actions builds the root `Dockerfile` (Next `output: "standalone"`) and pushes `ghcr.io/michaeloredev/jdrock:latest`, then SSHes to the droplet (`159.203.173.214`, user `deploy`), copies `deploy/docker-compose.yml` + `deploy/Caddyfile` into `/srv/jdrock`, and runs `docker compose pull app && up -d`. Caddy in the same compose project terminates TLS (certs in the `jdrock_caddy_data` volume — keep the compose project name `jdrock`). The droplet's `/srv/jdrock/.env.production` holds `RESEND_API_KEY` and `EMAIL_TO` and is never in the repo. Secrets: `DEPLOY_SSH_KEY`, `DEPLOY_KNOWN_HOSTS`, `DEPLOY_HOST`. Re-deploy without a push via the workflow's "Run workflow" button. `scripts/release.sh [feature/branch]` does a full release: merges the branch into develop, runs `npm run build`, asks to confirm, merges develop into main, pushes over SSH (the gh token lacks `workflow` scope), and watches the deploy. Test the image locally with `docker build -t jdrock-test . && docker run --rm -p 3999:3000 jdrock-test`.
 
 ## Git workflow
 

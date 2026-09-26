@@ -2,8 +2,6 @@
 
 export const runtime = 'nodejs';
 
-import nodemailer from 'nodemailer';
-
 const escapeHtml = (value = '') =>
   String(value)
     .replace(/&/g, '&amp;')
@@ -39,31 +37,42 @@ export async function POST(request) {
     return json({ error: 'Please enter a valid email' }, 400);
   }
 
+  const apiKey = process.env.RESEND_API_KEY;
+  const to = process.env.EMAIL_TO?.split(',').map((address) => address.trim()).filter(Boolean);
+  if (!apiKey || !to?.length) {
+    console.error('Contact form is not configured: set RESEND_API_KEY and EMAIL_TO');
+    return json({ error: 'Error sending email' }, 500);
+  }
+
   try {
-    // Gmail SMTP: EMAIL_PASS must be a Google App Password, not the account password
-    const transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST,
-      port: 587,
-      secure: false, // STARTTLS on 587
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+    // Resend's HTTP API (DigitalOcean blocks outbound SMTP from the droplet).
+    // The from address must be on a domain verified in Resend (jdrock.com).
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
       },
+      body: JSON.stringify({
+        from: process.env.EMAIL_FROM || 'J.D. Rock Website <website@jdrock.com>',
+        to,
+        reply_to: email,
+        subject: `New Contact Form Submission from ${name.replace(/[\r\n]+/g, ' ')}`,
+        text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage:\n${questions}`,
+        html: `
+          <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+          <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+          <p><strong>Phone:</strong> ${escapeHtml(phone)}</p>
+          <p><strong>Message:</strong><br/>${escapeHtml(questions).replace(/\n/g, '<br/>')}</p>
+        `,
+      }),
+      signal: AbortSignal.timeout(15000),
     });
 
-    await transporter.sendMail({
-      from: `"Website Contact" <${process.env.EMAIL_USER}>`,
-      replyTo: email,
-      to: process.env.EMAIL_TO,
-      subject: `New Contact Form Submission from ${name.replace(/[\r\n]+/g, ' ')}`,
-      text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage:\n${questions}`,
-      html: `
-        <p><strong>Name:</strong> ${escapeHtml(name)}</p>
-        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
-        <p><strong>Phone:</strong> ${escapeHtml(phone)}</p>
-        <p><strong>Message:</strong><br/>${escapeHtml(questions).replace(/\n/g, '<br/>')}</p>
-      `,
-    });
+    if (!response.ok) {
+      console.error('Error sending email:', response.status, await response.text());
+      return json({ error: 'Error sending email' }, 500);
+    }
 
     return json({ message: 'Email sent successfully' }, 200);
   } catch (error) {
