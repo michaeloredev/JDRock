@@ -40,6 +40,10 @@ There are no tests. `npm run lint` is broken: Next 16 removed `next lint` (and `
 
 Headless Chrome barely advances framer-motion, so screenshots show page content stuck faded/offset by the `template.jsx` animation. To screenshot, temporarily replace `app/template.jsx` with a pass-through (`return children;`) and restore it afterwards (`git checkout app/template.jsx`). `google-chrome --headless=new --screenshot` is available; for interactions (e.g. the gallery lightbox), drive Chrome via `--remote-debugging-port` from `node --experimental-websocket` (Node 20).
 
+## Deployment
+
+Pushing to `main` deploys (`.github/workflows/deploy.yml`): Actions builds the root `Dockerfile` (Next `output: "standalone"`) and pushes `ghcr.io/michaeloredev/jdrock:latest`, then SSHes to the droplet (`159.203.173.214`, user `deploy`), copies `deploy/docker-compose.yml` + `deploy/Caddyfile` into `/srv/jdrock`, and runs `docker compose pull app && up -d`. Caddy in the same compose project terminates TLS (certs in the `jdrock_caddy_data` volume — keep the compose project name `jdrock`). The droplet's `/srv/jdrock/.env.production` holds the `EMAIL_*` vars and is never in the repo. Secrets: `DEPLOY_SSH_KEY`, `DEPLOY_KNOWN_HOSTS`, `DEPLOY_HOST`. Re-deploy without a push via the workflow's "Run workflow" button. Test the image locally with `docker build -t jdrock-test . && docker run --rm -p 3999:3000 jdrock-test`.
+
 ## Git workflow
 
 Branches: `feature/*` → merged with `--no-ff` into `develop` → `main` (release). Git has no HTTPS credential helper configured; push with `git -c credential.helper= -c 'credential.helper=!gh auth git-credential' push origin <branch>` (or the user can run `gh auth setup-git` once).
